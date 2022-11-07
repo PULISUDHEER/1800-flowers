@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 import com.challenge.flowers_1800.entity.Flowers;
 import com.challenge.flowers_1800.task.FlowersTask;
 
-
 @Service
 public class FlowersService {
 	RestTemplate restTemplate = new RestTemplate();

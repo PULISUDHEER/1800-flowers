@@ -1,11 +1,7 @@
 package com.challenge.flowers_1800.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Flowers {
-	@Id
+
 	private int userId;
 	private int id;
 	private String title;

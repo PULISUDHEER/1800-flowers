@@ -19,18 +19,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FlowersTask {
 
 	ObjectMapper obj = new ObjectMapper();
-	
+
 	FlowersTask restClient;
 
 	Flowers details;
 
 	public static final Logger logger = LoggerFactory.getLogger(FlowersExceptionHandler.class);
 
-	boolean update= false;
+	boolean update = false;
 
 	public List<Flowers> printUpdates(Flowers details, List<Flowers> list) throws Exception {
-		update =false;
-		Predicate<Flowers> predicate =  i -> i.getUserId() == details.getUserId();
+		update = false;
+
+		Predicate<Flowers> predicate = i -> i.getUserId() == details.getUserId();
 		list.stream().forEach(i -> {
 			if (predicate.test(i)) {
 				i.setTitle(details.getTitle());
@@ -44,24 +45,24 @@ public class FlowersTask {
 		}
 		logger.error("UserId not found!");
 		throw new RuntimeException("UserId not found!");
-
 	}
 
 	public Map<String, Integer> printCount(List<Flowers> list) {
 
-		Map<Integer, List<Flowers>> map = new TreeMap<>();
-				map= list
-				.stream()
-				.collect(Collectors.groupingBy(Flowers::getUserId));
-				
-				HashSet<Integer> set = new HashSet<>();
-				set.addAll(map.keySet());
 		Map<String, Integer> map1 = new TreeMap<>();
-		map1.put("Unique UserId's", set.size());
-		
-		
+		try {
+			Map<Integer, List<Flowers>> map = new TreeMap<>();
+			map = list.stream().collect(Collectors.groupingBy(Flowers::getUserId));
+
+			HashSet<Integer> set = new HashSet<>();
+			set.addAll(map.keySet());
+
+			map1.put("Unique UserId's", set.size());
+
+		} catch (Exception e) {
+			new RuntimeException(e.getMessage());
+		}
 		return map1;
 	}
 
-	
 }
