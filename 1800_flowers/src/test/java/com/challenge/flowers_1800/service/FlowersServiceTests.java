@@ -2,7 +2,6 @@ package com.challenge.flowers_1800.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,9 +14,6 @@ import com.challenge.flowers_1800.entity.Flowers;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class FlowersServiceTests {
-
-	@InjectMocks
-	FlowersService service;
 
 	@Mock
 	RestTemplate restTemplate;
