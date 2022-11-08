@@ -23,11 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FlowersExceptionHandlerTests {
 
 	ObjectMapper obj = new ObjectMapper();
+
 	@InjectMocks
 	FlowersTask task;
 
 	@Test
-	void flowersExceptionHandlerTest() throws JsonMappingException, JsonProcessingException {
+	void printUpdatesTest() throws JsonMappingException, JsonProcessingException {
 
 		String reqBody = "{\"userId\":2,\"title\":\"1800flowers\", \"body\":\"1800flowers\"}";
 		Flowers details = obj.readValue(reqBody, Flowers.class);

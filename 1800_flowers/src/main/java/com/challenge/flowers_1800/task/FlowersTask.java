@@ -25,26 +25,27 @@ public class FlowersTask {
 	Flowers details;
 
 	public static final Logger logger = LoggerFactory.getLogger(FlowersExceptionHandler.class);
-
+	
 	boolean update = false;
 
 	public List<Flowers> printUpdates(Flowers details, List<Flowers> list) throws Exception {
-		update = false;
+		
+			update = false;
 
-		Predicate<Flowers> predicate = i -> i.getUserId() == details.getUserId();
-		list.stream().forEach(i -> {
-			if (predicate.test(i)) {
-				i.setTitle(details.getTitle());
-				i.setBody(details.getBody());
-				update = predicate.test(i);
+			Predicate<Flowers> predicate = i -> i.getUserId() == details.getUserId();
+			list.stream().forEach(i -> {
+				if (predicate.test(i)) {
+					i.setTitle(details.getTitle());
+					i.setBody(details.getBody());
+					update = predicate.test(i);
+				}
+
+			});
+			if (update == true) {
+				return list;
 			}
-
-		});
-		if (update == true) {
-			return list;
-		}
-		logger.error("UserId not found!");
-		throw new RuntimeException("UserId not found!");
+			logger.error("UserId not found!");
+			throw new RuntimeException("UserId not found!");
 	}
 
 	public Map<String, Integer> printCount(List<Flowers> list) {
