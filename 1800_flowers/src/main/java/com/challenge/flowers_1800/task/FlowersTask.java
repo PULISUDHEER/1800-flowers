@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -13,45 +12,34 @@ import org.springframework.stereotype.Service;
 
 import com.challenge.flowers_1800.entity.Flowers;
 import com.challenge.flowers_1800.exception.FlowersExceptionHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class FlowersTask {
 
-	ObjectMapper obj = new ObjectMapper();
-
-	FlowersTask restClient;
-
-	Flowers details;
-
 	public static final Logger logger = LoggerFactory.getLogger(FlowersExceptionHandler.class);
-	
-	boolean update = false;
 
 	public List<Flowers> printUpdates(Flowers details, List<Flowers> list) throws Exception {
-		
-			update = false;
 
-			Predicate<Flowers> predicate = i -> i.getUserId() == details.getUserId();
-			list.stream().forEach(i -> {
-				if (predicate.test(i)) {
-					i.setTitle(details.getTitle());
-					i.setBody(details.getBody());
-					update = predicate.test(i);
+		if (list.stream().filter(i -> (i.getUserId() == details.getUserId())).count() != 0) {
+			logger.info("Update done");
+			list.stream().map(e -> {
+				if (e.getUserId() == details.getUserId()) {
+					e.setTitle(details.getTitle());
+					e.setBody(details.getBody());
 				}
-
-			});
-			if (update == true) {
-				return list;
-			}
-			logger.error("UserId not found!");
-			throw new RuntimeException("UserId not found!");
+				return e;
+			}).collect(Collectors.toList());
+			return list;
+		}
+		logger.error("UserId not found!");
+		throw new RuntimeException("UserId not found!");
 	}
 
 	public Map<String, Integer> printCount(List<Flowers> list) {
 
 		Map<String, Integer> map1 = new TreeMap<>();
 		try {
+			logger.info("Unique UserId counted");
 			Map<Integer, List<Flowers>> map = new TreeMap<>();
 			map = list.stream().collect(Collectors.groupingBy(Flowers::getUserId));
 
@@ -61,6 +49,7 @@ public class FlowersTask {
 			map1.put("Unique UserId's", set.size());
 
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			new RuntimeException(e.getMessage());
 		}
 		return map1;

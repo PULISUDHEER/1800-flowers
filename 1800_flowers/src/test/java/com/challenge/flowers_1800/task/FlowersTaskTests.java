@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
 
 import com.challenge.flowers_1800.entity.Flowers;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,9 @@ public class FlowersTaskTests {
 	FlowersTask task;
 
 	ObjectMapper obj = new ObjectMapper();
+
+	@Autowired
+	RestTemplate template;
 
 	@Test
 	void printUpdatesTest() throws Exception {

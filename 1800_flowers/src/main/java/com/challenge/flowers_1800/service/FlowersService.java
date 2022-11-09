@@ -16,7 +16,9 @@ import com.challenge.flowers_1800.task.FlowersTask;
 
 @Service
 public class FlowersService {
-	RestTemplate restTemplate = new RestTemplate();
+
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Autowired
 	FlowersTask task;
