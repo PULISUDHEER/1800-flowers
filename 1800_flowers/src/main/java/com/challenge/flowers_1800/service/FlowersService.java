@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,24 +16,21 @@ import com.challenge.flowers_1800.task.FlowersTask;
 @Service
 public class FlowersService {
 
-	@Autowired
-	private RestTemplate restTemplate;
+	private RestTemplate restTemplate = new RestTemplate();
 
 	@Autowired
 	FlowersTask task;
 
 	List<Flowers> list;
 
-	@Value("${Data:http://localhost:}")
-	String url;
+	public List<Flowers> updateList(String url, Flowers details) throws Exception {
 
-	public List<Flowers> updateList(Flowers details) throws Exception {
 		list = Optional.ofNullable(list)
 				.orElse(new ArrayList<>(Arrays.asList(restTemplate.getForObject(url, Flowers[].class))));
 		return task.printUpdates(details, list);
 	}
 
-	public Map<String, Integer> countUsers() {
+	public Map<String, Integer> countUsers(String url) {
 		list = Optional.ofNullable(list)
 				.orElse(new ArrayList<>(Arrays.asList(restTemplate.getForObject(url, Flowers[].class))));
 		return task.printCount(list);

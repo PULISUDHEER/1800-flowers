@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +24,16 @@ public class FlowersController {
 	@Autowired
 	FlowersService service;
 
+	@Value("${Data:http://localhost:}")
+	String url;
+
 	@GetMapping("/countUniqueUserId")
 	public ResponseEntity<Map<String, Integer>> uniqueUserIds() throws JsonMappingException, JsonProcessingException {
-		return new ResponseEntity<Map<String, Integer>>(service.countUsers(), HttpStatus.OK);
+		return new ResponseEntity<Map<String, Integer>>(service.countUsers(url), HttpStatus.OK);
 	}
 
 	@PutMapping("/updateData")
 	public ResponseEntity<List<Flowers>> update(@RequestBody Flowers details) throws Exception {
-		return new ResponseEntity<List<Flowers>>(service.updateList(details), HttpStatus.CREATED);
+		return new ResponseEntity<List<Flowers>>(service.updateList(url, details), HttpStatus.CREATED);
 	}
 }
