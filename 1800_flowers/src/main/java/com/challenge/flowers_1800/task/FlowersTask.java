@@ -21,7 +21,7 @@ public class FlowersTask {
 	public List<Flowers> printUpdates(Flowers details, List<Flowers> list) throws Exception {
 
 		if (list.stream().filter(i -> (i.getUserId() == details.getUserId())).count() != 0) {
-			logger.info("Update done");
+			logger.info("Update done for UserId: "+details.getUserId());
 			list.stream().map(e -> {
 				if (e.getUserId() == details.getUserId()) {
 					e.setTitle(details.getTitle());
@@ -31,7 +31,7 @@ public class FlowersTask {
 			}).collect(Collectors.toList());
 			return list;
 		}
-		logger.error("UserId not found!");
+		logger.error("UserId not found for UserId: "+details.getUserId());
 		throw new RuntimeException("UserId not found!");
 	}
 
@@ -39,7 +39,7 @@ public class FlowersTask {
 
 		Map<String, Integer> map1 = new TreeMap<>();
 		try {
-			logger.info("Unique UserId counted");
+			logger.info("Unique UserIds count done success");
 			Map<Integer, List<Flowers>> map = new TreeMap<>();
 			map = list.stream().collect(Collectors.groupingBy(Flowers::getUserId));
 

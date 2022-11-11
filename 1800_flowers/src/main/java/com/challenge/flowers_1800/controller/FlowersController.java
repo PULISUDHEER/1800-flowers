@@ -27,12 +27,12 @@ public class FlowersController {
 	@Value("${Data:http://localhost:}")
 	String url;
 
-	@GetMapping("/countUniqueUserId")
+	@GetMapping
 	public ResponseEntity<Map<String, Integer>> uniqueUserIds() throws JsonMappingException, JsonProcessingException {
 		return new ResponseEntity<Map<String, Integer>>(service.countUsers(url), HttpStatus.OK);
 	}
 
-	@PutMapping("/updateData")
+	@PutMapping
 	public ResponseEntity<List<Flowers>> update(@RequestBody Flowers details) throws Exception {
 		return new ResponseEntity<List<Flowers>>(service.updateList(url, details), HttpStatus.CREATED);
 	}

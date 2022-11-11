@@ -31,14 +31,14 @@ public class FlowersControllerTests {
 	@Test
 	void uniqueUserIdsTest() throws Exception {
 
-		mvc.perform(get("/1800-flowers/countUniqueUserId").contentType(MediaType.APPLICATION_JSON))
+		mvc.perform(get("/1800-flowers").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
 
 	@Test
 	void updateTest() throws Exception {
 		String reqBody = "{\"userId\":1,\"title\":\"1800flowers\", \"body\":\"1800flowers\"}";
-		mvc.perform(put("/1800-flowers/updateData").content(reqBody).contentType(MediaType.APPLICATION_JSON))
+		mvc.perform(put("/1800-flowers").content(reqBody).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
